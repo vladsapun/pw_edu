@@ -19,10 +19,10 @@ npx playwright install
 ## Usage
 
 ```# Run all tests in headless mode
-npx playwright test
+npm test 
 
 # Run tests in interactive UI mode
-npx playwright test --ui
+npm run ui
 
 # Run tests in a specific browser (e.g., Chromium)
 npx playwright test --project=chromium
