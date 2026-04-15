@@ -1,0 +1,26 @@
+{
+  "name": "pw_edu",
+  "version": "1.0.0",
+  "description": "PW test project via Yet Another JS Course",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "ui": "npx playwright test --ui"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vladsapun/pw_edu.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/vladsapun/pw_edu/issues"
+  },
+  "homepage": "https://github.com/vladsapun/pw_edu#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^25.6.0"
+  }
+}
