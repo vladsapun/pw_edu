@@ -24,7 +24,7 @@ test ("Verify user can view product details", async ({ page }) => {
     const productPage = new ProductPage(page);
     const header = new HeaderFragment(page);
     await header.homeButton.click();
-    await homePage.productItem.filter({ hasText: 'Combination Pliers' }).click();
+    await homePage.getProductByName('Combination Pliers').click();
     await expect(productPage.productName).toHaveText('Combination Pliers');
     await expect(page).toHaveURL(/\/product\/.+/);
     await expect(productPage.productPrice).toHaveText('14.15');

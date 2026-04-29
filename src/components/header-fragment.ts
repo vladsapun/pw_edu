@@ -1,10 +1,7 @@
 import { Page } from "playwright";
-import { PageFragmentConstructor } from "./page-fragment-constructor";
 
-export class HeaderFragment extends PageFragmentConstructor {
-    constructor(page: Page) {
-        super(page);
-    }
+export class HeaderFragment {
+    constructor(public readonly page: Page) {}
 
     root = this.page.locator('app-header');
     menuBar = this.root.getByLabel('Main menu');

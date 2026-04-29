@@ -8,4 +8,8 @@ export class HomePage extends BasePage{
 
     productItem = this.page.getByTestId('product-name'); 
 
+    getProductByName(name: string) {
+  return this.productItem.filter({ hasText: name });
+}
+
 }
