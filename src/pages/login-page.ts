@@ -12,8 +12,9 @@ export class LoginPage extends BasePage {
 
   async login() {
     await this.page.goto('https://practicesoftwaretesting.com/auth/login')
-    await this.emailField.fill('customer@practicesoftwaretesting.com')
+    await this.emailField.fill('customer2@practicesoftwaretesting.com')
     await this.passwordField.fill('welcome01')
     await this.submitButton.click()
+    await this.page.waitForURL('https://practicesoftwaretesting.com/account');
   }
 }
