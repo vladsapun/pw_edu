@@ -7,7 +7,9 @@
     "test": "npx playwright test",
     "ui": "npx playwright test --ui",
     "lint": "npx eslint .",
-    "lint:fix": "npx eslint . --fix"
+    "lint:fix": "npx eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "repository": {
     "type": "git",
@@ -28,11 +30,13 @@
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^25.6.0",
     "eslint": "^10.2.1",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsdoc": "^62.9.0",
     "eslint-plugin-playwright": "^2.10.2",
     "eslint-plugin-prettier": "^5.5.5",
+    "prettier": "3.8.3",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.0"
   },

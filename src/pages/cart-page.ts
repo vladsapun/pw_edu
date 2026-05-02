@@ -3,7 +3,7 @@ import { BasePage } from './base-page';
 
 export class CartPage extends BasePage {
   constructor(page: Page) {
-    super(page, '/checkout')
+    super(page, '/checkout');
   }
 
   tableRows = this.page.locator('table tbody tr');
@@ -11,7 +11,7 @@ export class CartPage extends BasePage {
   proceedButton = this.page.getByTestId('proceed-1');
   continueShoppingButton = this.page.getByTestId('continue-shopping');
 
-  async verifyCartHasItem(count:number) {
+  async verifyCartHasItem(count: number) {
     await expect(this.tableRows).toHaveCount(count);
   }
 
