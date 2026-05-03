@@ -1,18 +1,12 @@
 import { test, expect } from '@playwright/test';
 import path from 'path';
 import { AccountPage } from '../pages/account-page';
-import { HomePage } from '../pages/home-page';
+import { HomePage, SortOption } from '../pages/home-page';
 import { ProductPage } from '../pages/product-page';
 import { HeaderFragment } from '../components/header-fragment';
 import { CartPage } from '../pages/cart-page';
 
-// test.beforeEach(async ({ page }) => {
-//   const loginPage = new LoginPage(page)
-//   await loginPage.login()
-// })
-
 const authFile = path.join(__dirname, '../playwright/.auth/user.json');
-
 test.use({ storageState: authFile });
 
 test('Verify user can add product to cart', async ({ page }) => {
@@ -35,44 +29,49 @@ test('Verify user can add product to cart', async ({ page }) => {
   await expect(cartPage.proceedButton).toBeVisible();
 });
 
-test('Verify user can perform sorting by name (asc & desc', async ({ page }) => {
-  const homePage = new HomePage(page);
-  const productPage = new ProductPage(page);
-  const header = new HeaderFragment(page);
-  await page.goto('https://practicesoftwaretesting.com/account');
-  await header.homeButton.click();
-  await homePage.getProductByName('Combination Pliers').click();
-  await expect(productPage.productName).toHaveText('Combination Pliers');
-  await expect(page).toHaveURL(/\/product\/.+/);
-  await expect(productPage.productPrice).toHaveText('14.15');
-  await expect(productPage.addToCartButton).toBeVisible();
-  await expect(productPage.addToFavoritesButton).toBeVisible();
+test.describe('Verify user can perform sorting by name', () => {
+  const testCases: { order: SortOption; label: string }[] = [
+  { order: 'name,asc', label: 'name ascending' },
+  { order: 'name,desc', label: 'name descending' },
+  ];
+
+  for (const { order, label } of testCases) {
+    test(`Sorting ${label}`, async ({ page }) => {
+      const homePage = new HomePage(page);
+      const header = new HeaderFragment(page);
+      await page.goto('https://practicesoftwaretesting.com/account');
+      await header.homeButton.click();
+      await homePage.selectSortingOption(order);
+      const actualNames = await homePage.productNames.allTextContents();
+      const expectedNames = [...actualNames].sort((a, b) => {
+        return order === 'name,asc' 
+          ? a.localeCompare(b) 
+          : b.localeCompare(a);
+      });
+      expect(actualNames).toEqual(expectedNames);
+    });
+  }
 });
 
-test('Verify user can perform sorting by price (asc & desc)', async ({ page }) => {
-  const homePage = new HomePage(page);
-  const productPage = new ProductPage(page);
-  const header = new HeaderFragment(page);
-  await page.goto('https://practicesoftwaretesting.com/account');
-  await header.homeButton.click();
-  await homePage.getProductByName('Combination Pliers').click();
-  await expect(productPage.productName).toHaveText('Combination Pliers');
-  await expect(page).toHaveURL(/\/product\/.+/);
-  await expect(productPage.productPrice).toHaveText('14.15');
-  await expect(productPage.addToCartButton).toBeVisible();
-  await expect(productPage.addToFavoritesButton).toBeVisible();
-});
+test.describe('Verify user can perform sorting by prices', () => {
+  const testCases: { order: SortOption; label: string }[] = [
+  { order: 'price,asc', label: 'price ascending' },
+  { order: 'price,desc', label: 'price descending' },
+  ];
 
-test('Verify user can filter products by category', async ({ page }) => {
-  const homePage = new HomePage(page);
-  const productPage = new ProductPage(page);
-  const header = new HeaderFragment(page);
-  await page.goto('https://practicesoftwaretesting.com/account');
-  await header.homeButton.click();
-  await homePage.getProductByName('Combination Pliers').click();
-  await expect(productPage.productName).toHaveText('Combination Pliers');
-  await expect(page).toHaveURL(/\/product\/.+/);
-  await expect(productPage.productPrice).toHaveText('14.15');
-  await expect(productPage.addToCartButton).toBeVisible();
-  await expect(productPage.addToFavoritesButton).toBeVisible();
+  for (const { order, label } of testCases) {
+    test(`Sorting ${label}`, async ({ page }) => {
+      const homePage = new HomePage(page);
+      const header = new HeaderFragment(page);
+      await page.goto('https://practicesoftwaretesting.com/account');
+      await header.homeButton.click();
+      await homePage.selectSortingOption(order);
+      const rawPrices = await homePage.productPrices.allTextContents();
+      const actualPrices = rawPrices.map(p => parseFloat(p.replace('$', '')));
+      const expected = [...actualPrices].sort((a, b) => 
+          order.endsWith('asc') ? a - b : b - a
+        );
+      expect(actualPrices).toEqual(expected);
+    });
+}
 });
