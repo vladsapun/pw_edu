@@ -1,5 +1,6 @@
 import { Page } from 'playwright';
 import { BasePage } from './base-page';
+import { Category } from '../components/product-categories';
 
 export type SortOption = 
   | 'name,asc' 
@@ -34,6 +35,17 @@ async getAllProductPrices(): Promise<number[]> {
 
   async selectSortingOption(option: SortOption) {
     await this.sortingDropdown.selectOption(option);
+    await this.page.waitForLoadState('networkidle');
+  }
+
+  async selectCategory(categoryValue: Category) {
+    
+    const checkbox = this.page.getByLabel(categoryValue, { exact: true });
+
+    
+    if (!(await checkbox.isChecked())) {
+      await checkbox.check();
+    }
     await this.page.waitForLoadState('networkidle');
   }
 }
