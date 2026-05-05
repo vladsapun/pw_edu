@@ -2,6 +2,7 @@ import js from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import playwright from 'eslint-plugin-playwright'
 import stylistic from '@stylistic/eslint-plugin'
+import eslintConfigPrettier from 'eslint-config-prettier'
 
 export default tseslint.config(
   js.configs.recommended,
@@ -25,18 +26,17 @@ export default tseslint.config(
       '@typescript-eslint/no-floating-promises': 'error',
       '@typescript-eslint/no-explicit-any': 'warn',
     },
-
   },
   {
-
     ignores: ['node_modules/', 'playwright-report/', 'test-results/'],
   },
   {
     files: ['tests/**'],
     extends: [playwright.configs['flat/recommended']],
     rules: {
-      // Customize Playwright rules
-      // ...
+      // Здесь можно добавить свои правила для Playwright
     },
   },
+  // Всегда добавляем Prettier в самый конец
+  eslintConfigPrettier,
 )

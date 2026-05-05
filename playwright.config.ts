@@ -16,13 +16,10 @@ export default defineConfig({
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
@@ -38,20 +35,24 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+    { name: 'perform-login', testMatch: /auth-setup\.spec\.ts/ },
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { 
+        storageState: 'playwright/.auth/user.json',
+        ...devices['Desktop Chrome'] },
+      dependencies: ['perform-login']
     },
 
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
+    // {
+    //   name: 'firefox',
+    //   use: { ...devices['Desktop Firefox'] },
+    // },
 
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
+    // {
+    //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'] },
+    // },
 
     /* Test against mobile viewports. */
     // {
