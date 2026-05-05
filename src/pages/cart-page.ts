@@ -6,7 +6,7 @@ export class CartPage extends BasePage {
     super(page, '/checkout');
   }
 
-  tableRows = this.page.locator('table tbody tr');
+  tableRows = this.page.getByTestId('product-specs').locator('table tbody tr');  
   productTitle = this.page.getByTestId('product-title');
   proceedButton = this.page.getByTestId('proceed-1');
   continueShoppingButton = this.page.getByTestId('continue-shopping');

@@ -82,7 +82,5 @@ test.describe('Verify user can filter products by category', () => {
     await homePage.selectCategory(PowerTools.SANDER);
     const sortedNames = await homePage.productNames.allTextContents();
     const expectedNames = [...sortedNames].filter((name) => name.toLowerCase().includes('sander'));
-    console.log(sortedNames);
-    console.log(expectedNames);
   });
 });
