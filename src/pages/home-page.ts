@@ -18,6 +18,7 @@ export class HomePage extends BasePage {
   sortingDropdown = this.page.getByTestId('sort');
   productNames = this.page.getByTestId('product-name');
   productPrices = this.page.getByTestId('product-price');
+  firstProduct = this.page.locator('a.card').first();
 
 
   getProductByName(name: string) {

@@ -1,11 +1,9 @@
 import { Page } from 'playwright'
 
 export class BasePage {
-  public pageUrl: string
   public page: Page
 
-  constructor(page: Page, pageUrl: string) {
+  constructor(page: Page) {
     this.page = page
-    this.pageUrl = pageUrl
   }
 }
