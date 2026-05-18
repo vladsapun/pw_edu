@@ -4,7 +4,7 @@ import { PowerTools } from '../../components/product-categories';
 
 
 test('Verify user can add product to cart', async ({ application, page }) => {
-  await page.goto('https://practicesoftwaretesting.com/account');
+  await application.allPages.accPage.navigate();
   await application.allPages.accPage.waitForPageLoad();
   await application.allPages.header.homeButton.click();
   await application.allPages.homePage.getProductByName('Slip Joint Pliers').click();
@@ -25,8 +25,8 @@ test.describe('Verify user can perform sorting by name', () => {
   ];
 
   for (const { order, label } of testCases) {
-    test(`Sorting ${label}`, async ({application, page }) => {
-      await page.goto('https://practicesoftwaretesting.com/account');
+    test(`Sorting ${label}`, async ({application }) => {
+      await application.allPages.accPage.navigate();
       await application.allPages.header.homeButton.click();
       await application.allPages.homePage.selectSortingOption(order);
       const actualNames = await application.allPages.homePage.productNames.allTextContents();
@@ -45,8 +45,8 @@ test.describe('Verify user can perform sorting by prices', () => {
   ];
 
   for (const { order, label } of testCases) {
-    test(`Sorting ${label}`, async ({application, page }) => {
-      await page.goto('https://practicesoftwaretesting.com/account');
+    test(`Sorting ${label}`, async ({application }) => {
+      await application.allPages.accPage.navigate();
       await application.allPages.header.homeButton.click();
       await application.allPages.homePage.selectSortingOption(order);
       const rawPrices = await application.allPages.homePage.productPrices.allTextContents();
@@ -58,8 +58,8 @@ test.describe('Verify user can perform sorting by prices', () => {
 });
 
 test.describe('Verify user can filter products by category', () => {
-  test(`Filter products by category: ${PowerTools.SANDER}`, async ({ application, page }) => {
-    await page.goto('https://practicesoftwaretesting.com/account');
+  test(`Filter products by category: ${PowerTools.SANDER}`, async ({ application }) => {
+    await application.allPages.accPage.navigate();
     await application.allPages.header.homeButton.click();
     await application.allPages.homePage.selectCategory(PowerTools.SANDER);
     const sortedNames = await application.allPages.homePage.productNames.allTextContents();

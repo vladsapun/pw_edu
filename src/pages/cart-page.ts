@@ -15,21 +15,23 @@ export class CartPage extends BasePage {
   cartTotal = this.page.getByTestId('cart-quantity');
   alreadyLoggedInMessage = this.page.locator('.login-container p');
 
-  // Billing address form fields
-  countryField = this.page.getByTestId('country');
-  postalCodeField = this.page.getByTestId('postal_code');
-  houseNumberField = this.page.getByTestId('house_number');
-  stateField = this.page.getByTestId('state');
-  proceedToPaymentButton = this.page.getByTestId('proceed-3');
+  billing = {
+    countryField: this.page.getByTestId('country'),
+    postalCodeField: this.page.getByTestId('postal_code'),
+    houseNumberField: this.page.getByTestId('house_number'),
+    stateField: this.page.getByTestId('state'),
+    proceedToPaymentButton: this.page.getByTestId('proceed-3')
+  }
 
-  // Payment 
-  paymentMethodSelect = this.page.getByTestId('payment-method');
-  creditCardNumberField = this.page.getByTestId('credit_card_number');
-  expirationDateField = this.page.getByTestId('expiration_date');
-  cvvField = this.page.getByTestId('cvv');
-  cardholderNameField = this.page.getByTestId('card_holder_name');
-  confirmButton = this.page.getByTestId('finish');
-  paymentSuccessMessage = this.page.getByTestId('payment-success-message');
+  payment = {
+    paymentMethodSelect: this.page.getByTestId('payment-method'),
+    creditCardNumberField: this.page.getByTestId('credit_card_number'),
+    expirationDateField: this.page.getByTestId('expiration_date'),
+    cvvField: this.page.getByTestId('cvv'),
+    cardholderNameField: this.page.getByTestId('card_holder_name'),
+    confirmButton: this.page.getByTestId('finish'),
+    paymentSuccessMessage: this.page.getByTestId('payment-success-message')
+  };
 
 
   async verifyCartHasItem(count: number) {
@@ -64,33 +66,31 @@ async verifyAlreadyLoggedInMessage() {
 }
 
 async selectCountry(country: string) {
-  await expect(this.countryField).toBeVisible();
-  await this.countryField.selectOption(country);
+  await this.billing.countryField.selectOption(country);
 }
 
 async fillPostalCode(postalCode: string) {
-  await expect(this.postalCodeField).toBeVisible();
-  await this.postalCodeField.fill(postalCode);
+  await expect(this.billing.postalCodeField).toBeVisible();
+  await this.billing.postalCodeField.fill(postalCode);
 }
 
 async fillHouseNumber(houseNumber: string) {
-  await expect(this.houseNumberField).toBeVisible();
-  await this.houseNumberField.fill(houseNumber);
+  await expect(this.billing.houseNumberField).toBeVisible();
+  await this.billing.houseNumberField.fill(houseNumber);
 }
 
 async fillState(state: string) {
-  await expect(this.stateField).toBeVisible();
-  await this.stateField.fill(state);
+  await expect(this.billing.stateField).toBeVisible();
+  await this.billing.stateField.fill(state);
 }
 
 async clickProceedToPayment() {
-  await expect(this.proceedToPaymentButton).toBeVisible();
-  await this.proceedToPaymentButton.click();  
+  await expect(this.billing.proceedToPaymentButton).toBeVisible();
+  await this.billing.proceedToPaymentButton.click();  
 }
 
 async selectPaymentMethod(method: string) {
-  await expect(this.paymentMethodSelect).toBeVisible();
-  await this.paymentMethodSelect.selectOption(method);
+  await this.payment.paymentMethodSelect.selectOption(method);
 }
 
 async fillCreditCardDetails(cardNumber: string, cvv: string, cardHolderName: string, expirationDate?: string) {
@@ -103,18 +103,18 @@ let finalDate = expirationDate;
     finalDate = `${month}/${year}`;
   }
 
-  await this.creditCardNumberField.fill(cardNumber);
-  await this.expirationDateField.fill(finalDate);
-  await this.cvvField.fill(cvv);
-  await this.cardholderNameField.fill(cardHolderName);
+  await this.payment.creditCardNumberField.fill(cardNumber);
+  await this.payment.expirationDateField.fill(finalDate);
+  await this.payment.cvvField.fill(cvv);
+  await this.payment.cardholderNameField.fill(cardHolderName);
 }
 
 async clickConfirmButton() {
-  await this.confirmButton.click();
+  await this.payment.confirmButton.click();
 }
 
 async verifyPaymentSuccess() {
-  await expect(this.paymentSuccessMessage).toBeVisible();
-  await expect(this.paymentSuccessMessage).toHaveText('Payment was successful');
+  await expect(this.payment.paymentSuccessMessage).toBeVisible();
+  await expect(this.payment.paymentSuccessMessage).toHaveText('Payment was successful');
 }
 }

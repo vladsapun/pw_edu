@@ -1,7 +1,7 @@
 import { test } from '../../../fixtures';
 
-test('Verify user can proceed to payment', async ({ loggedInApplication, page }) => {
-  await page.goto('https://practicesoftwaretesting.com/account');
+test('Verify user can proceed to payment', async ({ loggedInApplication }) => {
+  await loggedInApplication.allPages.accPage.navigate();
   await loggedInApplication.allPages.accPage.waitForPageLoad();
   await loggedInApplication.allPages.header.homeButton.click();
   await loggedInApplication.allPages.homePage.firstProduct.click();
