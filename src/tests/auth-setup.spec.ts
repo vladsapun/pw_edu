@@ -1,9 +1,9 @@
 /// <reference types="node" />
-import { test } from '@playwright/test';
+import { test } from '../../fixtures';
 import { join } from 'node:path';
 import { LoginPage } from '../pages/login-page';
 
-const authFile = join(process.cwd(), 'src/playwright/.auth/user.json');
+const authFile = join(process.cwd(), 'playwright/.auth/user.json');
 
 test('Verify successful login', async ({ page }) => {
   const loginPage = new LoginPage(page);

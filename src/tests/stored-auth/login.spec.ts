@@ -1,18 +1,8 @@
-import { test, expect } from '@playwright/test'
-import path from 'path';
-import { AccountPage } from '../pages/account-page'
-import { HomePage } from '../pages/home-page'
-import { ProductPage } from '../pages/product-page'
-import { HeaderFragment } from '../components/header-fragment'
-
-// test.beforeEach(async ({ page }) => {
-//   const loginPage = new LoginPage(page)
-//   await loginPage.login()
-// })
-
-const authFile = path.join(__dirname, '../playwright/.auth/user.json');
-
-test.use({ storageState: authFile });
+import { test, expect } from '../../../fixtures';
+import { AccountPage } from '../../pages/account-page';
+import { HeaderFragment } from '../../components/header-fragment';
+import { HomePage } from '../../pages/home-page';
+import { ProductPage } from '../../pages/product-page';
 
 test('User can log in', async ({ page }) => {
   const header = new HeaderFragment(page)

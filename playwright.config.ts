@@ -33,15 +33,28 @@ export default defineConfig({
     testIdAttribute: 'data-test',
   },
 
-  /* Configure projects for major browsers */
   projects: [
-    { name: 'perform-login', testMatch: /auth-setup\.spec\.ts/ },
-    {
-      name: 'chromium',
+    { 
+      name: 'perform-login', 
+      testMatch: /auth-setup\.spec\.ts/ /* */
+    },
+
+{
+      name: 'chromium-stored-auth',
+      testMatch: /stored-auth\/.*\.spec\.ts/, 
       use: { 
-        storageState: 'playwright/.auth/user.json',
-        ...devices['Desktop Chrome'] },
-      dependencies: ['perform-login']
+        ...devices['Desktop Chrome'],
+        storageState: 'playwright/.auth/user.json', 
+      },
+      dependencies: ['perform-login'],
+    },
+
+    {
+      name: 'chromium-fixture-auth',
+      testMatch: /fixture-auth\/.*\.spec\.ts/,
+      use: { 
+        ...devices['Desktop Chrome'], 
+      },
     },
 
     // {
