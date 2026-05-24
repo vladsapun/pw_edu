@@ -1,5 +1,5 @@
 import { test, expect } from '../../../fixtures';
-import { AccountPage } from '../../pages/account-page';
+import { AccountPage } from '../../pages/account-page'; 
 import { HeaderFragment } from '../../components/header-fragment';
 import { HomePage } from '../../pages/home-page';
 import { ProductPage } from '../../pages/product-page';

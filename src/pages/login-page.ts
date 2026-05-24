@@ -10,11 +10,23 @@ export class LoginPage extends BasePage {
   passwordField = this.page.getByTestId('password')
   submitButton = this.page.getByTestId('login-submit')
 
-  async login() {
+  async loginFE() {
     await this.page.goto('https://practicesoftwaretesting.com/auth/login')
     await this.emailField.fill('customer2@practicesoftwaretesting.com')
     await this.passwordField.fill('welcome01')
     await this.submitButton.click()
     await this.page.waitForURL('https://practicesoftwaretesting.com/account');
   }
+
+  async loginAPI() {
+    const response = await this.page.request.post('https://api.practicesoftwaretesting.com/users/login', {
+      data: {
+        email: 'customer2@practicesoftwaretesting.com',
+        password: 'welcome01'
+      }
+    });
+    const jsonData = await response.json();
+    return jsonData.access_token;
+  }
+
 }
