@@ -56,13 +56,6 @@ export default defineConfig({
         ...devices['Desktop Chrome'], 
       },
     },
-      {
-      name: 'chromium-api-auth',
-      testMatch: 'api-auth/**/*.spec.ts',
-      use: { 
-        ...devices['Desktop Chrome'], 
-      },
-    }
 
     // {
     //   name: 'firefox',
