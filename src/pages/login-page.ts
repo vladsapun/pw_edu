@@ -1,6 +1,11 @@
 import { Page } from 'playwright'
 import { BasePage } from './base-page'
 
+interface LoginResponse {
+  access_token: string;
+  [key: string]: unknown; 
+}
+
 export class LoginPage extends BasePage {
   constructor(page: Page) {
     super(page, '/auth/login')
@@ -18,14 +23,14 @@ export class LoginPage extends BasePage {
     await this.page.waitForURL('https://practicesoftwaretesting.com/account');
   }
 
-  async loginAPI() {
+  async loginAPI(): Promise<string> {
     const response = await this.page.request.post('https://api.practicesoftwaretesting.com/users/login', {
       data: {
         email: 'customer2@practicesoftwaretesting.com',
         password: 'welcome01'
       }
     });
-    const jsonData = await response.json();
+    const jsonData = (await response.json()) as LoginResponse;
     return jsonData.access_token;
   }
 
