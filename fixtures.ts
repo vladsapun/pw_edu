@@ -20,7 +20,10 @@ export const test = base.extend<MyFixtures>({
   }, 
 
   loggedInApplication: async ({ application }, use) => {
-    await application.allPages.loginPage.login();
+    const token = await application.allPages.loginPage.loginAPI();
+    await application.allPages.loginPage.page.context().addInitScript((tokenValue) => {
+      window.localStorage.setItem('auth-token', tokenValue);
+    }, token);
     await use(application);
   }
 
